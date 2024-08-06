@@ -5,10 +5,10 @@ from datetime import datetime
 def get_db_connection():
     conn = pyodbc.connect(
         'DRIVER={ODBC Driver 18 for SQL Server};'
-        'SERVER=DESKTOP-E7TMHHH;'
+        'SERVER=(Nombre del Servidor sql server);'
         'DATABASE=python_crud;'
-        'UID=sa;'
-        'PWD=admin123;'
+        'UID=(Tu nombre de usuario del sql server);'
+        'PWD=(Tu clave del qsl server);'
         'Encrypt=no;'
         'TrustServerCertificate=yes;'
     )
