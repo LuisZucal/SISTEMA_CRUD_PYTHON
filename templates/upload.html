@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-4">Cargar Productos</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file">Archivo Excel (.xlsx)</label>
+                    <input type="file" class="form-control-file" id="file" name="file" accept=".xlsx" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cargar</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="my-4">Registros de Archivos Cargados</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del Archivo</th>
+                <th>Fecha de Carga</th>
+                <th>Cantidad de Productos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for upload in uploads %}
+            <tr>
+                <td>{{ upload.filename }}</td>
+                <td>{{ upload.upload_date }}</td>
+                <td>{{ upload.product_count }}</td>
+                <td>
+                    <form action="{{ url_for('delete_upload', id=upload.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
