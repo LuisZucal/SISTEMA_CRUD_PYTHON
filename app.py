@@ -13,10 +13,26 @@ app.secret_key = 'supersecretkey'
 def index():
     page = request.args.get('page', 1, type=int)
     per_page = 5
+    
+    # Obtiene los elementos de la página actual
     items = get_paginated_items(page, per_page)
+    
+    # Total de items y total de páginas
     total_items = get_total_items_count()
     total_pages = (total_items + per_page - 1) // per_page
-    return render_template('read.html', items=items, page=page, total_pages=total_pages)
+    
+    # Calcula el rango de páginas para mostrar
+    page_numbers = list(range(max(1, page - 2), min(total_pages + 1, page + 3)))
+    
+    return render_template(
+        'read.html',
+        items=items,
+        page=page,
+        total_pages=total_pages,
+        page_numbers=page_numbers,
+        has_prev=page > 1,
+        has_next=page < total_pages
+    )
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
